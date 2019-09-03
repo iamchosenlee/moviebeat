@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    MOVIEBEAT
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="../static/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="../static/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/result.css">
+  <link href="../static/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper">
+    <div class="main-panel">
+      <!-- Navbar -->
+            <a href="\" id = 'logo'>MOVIEBEAT</a>
+        <div id = "menubar">
+              <ul class="nav justify-content-end">
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/">HOME</a>
+                </li>
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/action">GENRE</a>
+                </li>
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/analysis">ANALYSIS</a>
+                </li>
+              </ul>
+        </div>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">영화정보</h5>
+                    <h2 class="card-title">{{ mov_title }}</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                    <div class="row">
+                            <div class="col-md-2">
+                                <img src={{ poster }} style="max-height:300px;">
+                            </div>
+                            <div class="col-md-10">
+                                <p><b>줄거리: </b> {% if summary==None %}<p>등록된 줄거리가없습니다!</p>{% else %}{{ summary }}{%  endif %}</p>
+                                <p><b>네티즌 평점: </b> {{ score_net }}</p>
+                                <p><b>장르: </b> {{ genre }}</p>
+                                <p><b>등록된 명대사 개수: </b> {{ len_quotes }}</p>
+                            </div>
+                      <!--여기가 내용 들어갈 자리입니다. -->
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-chart">
+              <div class="card-header">
+              <h5 class="card-category">명대사분포도</h5>
+              <h3 class="card-title">{{ mov_title }}</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <!--그래프 들어가는곳. -->
+                    {% if alert== 0 %}
+                    <h1>자막 업데이트 예정입니다:)</h1>
+                    {% else %}
+                    <canvas id="myChart" height="50%"></canvas>
+                    {% endif %}
+                </div>
+              </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+
+  <script src="../static/js/core/jquery.min.js"></script>
+  <script src="../static/js/core/popper.min.js"></script>
+  <script src="../static/js/core/bootstrap.min.js"></script>
+  <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Chart JS -->
+  <script src="../static/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../static/js/plugins/bootstrap-notify.js"></script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "black-dashboard-free"
+      });
+  </script>
+    <script>
+          var timeAry = {{ time }};
+          var datetimeAry= {{ datetime|tojson }};
+          var quotelevel={{ level }};
+          let data1 = timeAry.map( (v,i) => ({ x: v, y:quotelevel[i] }));
+          var data= {
+                datasets: [{
+                    label: 'Scatter Dataset',
+                    data: data1,
+                    borderColor: 'rgba(255,66,84,0.7)',
+                    backgroundColor:"rgba(255,99,132,0.1)",
+                    showLine :true,
+                    fill: false,
+                    borderWidth: 1,
+                    pointBackgroundColor:{{ backcolor_list | tojson }},
+                    pointBorderColor:{{ color_list | tojson }},
+                    pointBorderWidth:{{ width_list }}
+                }]
+            };
+          var option={
+               legend:{
+                 display:false
+               },
+               tooltips: {
+                     callbacks: {
+                        label: function (tooltipItem, data) {
+                        var label= "명대사";
+                        if (label) {
+                            label += ': ';
+                        }
+                            label += [{{ quotes|tojson }}[tooltipItem.index],{{ datetime|tojson }}[tooltipItem.index]];
+                            return label;
+                        }
+                    }
+                },
+                 scales: {
+                    xAxes: [{
+                        type:"linear",
+                        position: 'bottom',
+                         ticks: {
+                          min: 0,
+                          max: 100.0,
+                         }
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                             min: 0,
+                            max: 6.0,
+
+                        }
+                    }]
+                },
+
+            }
+          var ctx = document.getElementById('myChart').getContext('2d');
+          var scatterChart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options:option
+        });
+    </script>
+
+</body>
+
+</html>

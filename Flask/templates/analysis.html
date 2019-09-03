@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="kr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    MOVIEBEAT : ANALYSIS
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="../static/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="../static/css/black-dashboard2.css?v=1.0.0" rel="stylesheet" />
+
+  <link href="../static/demo/demo.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../static/css/result.css">
+</head>
+
+<body class="">
+  <div class="wrapper">
+    <div class="main-panel">
+        <a href="\" id = 'logo'>MOVIEBEAT</a>
+        <div id = "menubar">
+              <ul class="nav justify-content-end">
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/">HOME</a>
+                </li>
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/action">GENRE</a>
+                </li>
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/analysis">ANALYSIS</a>
+                </li>
+              </ul>
+        </div>
+      <!-- Navbar -->
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">MOVIEBEAT 의 분석 정보입니다.</h5>
+                    <h2 class="card-title">ANALYSIS</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                    <h4>
+                       저희 뮤빗에서 제공되는 모든 정보는 직접 크롤링한 비정형 데이터를 기반으로 합니다.<br>
+                       <b>1400만개</b>의 자막데이터는 <b>자막 파일 4000개</b>에서 추출하였습니다.<br>
+                       <b>340만 개</b>의 영화정보데이터는 <b>11000개의 영화 데이터</b>에서 추출되었습니다.<br>
+                       저희는 국내 최초 12만개의 명대사로 접근하는 빅데이터 영화 시스템입니다.<br>
+                       한 가지 모양을 제시한 기존 영화이론을 장르별로 재검증하여, 영화에 대한 또 다른 접근방법을 제시합니다.<br>
+                   </h4>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">수집한 자막개수</h5>
+                <h3 class="card-title"><i class="tim-icons icon-video-66 text-primary"></i> 3903개</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLinePurple"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">장르별 자막 개수</h5>
+                <h3 class="card-title"><i class="tim-icons icon-video-66 text-info"></i> 8384개</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="CountryChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">실제 자막과 매치된 명대사 데이터</h5>
+                <h3 class="card-title"><i class="tim-icons icon-video-66 text-success"></i> 93000개</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLineGreen"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../static/js/core/jquery.min.js"></script>
+  <script src="../static/js/core/popper.min.js"></script>
+  <script src="../static/js/core/bootstrap.min.js"></script>
+  <script src="../static/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <!-- Chart JS -->
+  <script src="../static/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../static/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../static/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../static/forgraph/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      demo.initDashboardPageCharts();
+    });
+  </script>
+
+</body>
+
+</html>

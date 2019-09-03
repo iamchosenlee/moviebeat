@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+	<meta charset="utf-8">
+	<title>Genre</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="../static/css/swiper.min.css">
+	<link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/result.css">
+    <link rel="stylesheet" href="../static/bootstrap/bootstrap.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>{#jquery $같은거 쉽게 쓰게위해 씀 #}
+   <script src=" https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> {# chart js 쓰기휘함 #}
+
+	<script src="../static/js/script.js"></script>
+    <script>
+          var poster_list = {{ poster_list | tojson }};
+          var name_list = {{ name_list | tojson }};
+    </script>
+	<!-- Demo styles -->
+    <script>
+      function callFunction(obj) {
+        console.log($(obj).attr('attr-'a'));
+      }
+    </script>
+	<style>
+
+
+
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+        <header>
+			<a href="\" id = 'logo'>MOVIEBEAT</a>
+            <div id = "menubar">
+              <ul class="nav justify-content-end">
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/">HOME</a>
+                </li>
+                <li id ="padding" class="nav-item dropdown">
+                  <a class="nav-link" href="/action">GENRE</a>
+                </li>
+                <li id ="padding" class="nav-item">
+                  <a class="nav-link" href="/analysis">ANALYSIS</a>
+                </li>
+              </ul>
+            </div>
+        </header>
+        <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link" href="/action">ACITON</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link" href="/adventure">ADVENTURE</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/animation">ANIMATION</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/comedy">COMEDY</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/crime">CRIME</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/drama">DRAMA</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/fantasy">FANTASY</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/mystery">MYSTERY</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/romance">ROMANCE</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/sf">SF</a>
+                </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/thriller">THRILLER</a>
+                </li>
+              </ul>
+		<main class="content">
+			<div class="single">
+				<section class="trailer">
+					<h3>SF</h3>
+					<div class="trailer_frame">
+                        <canvas id="myChart" height="100%"></canvas>
+					</div>
+				</section>
+                <div></div>
+				<section class="panel">
+					<h2>SF MOVIE</h2>
+					<div class="recentslider">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+                                {% for i in sf_list %}
+								    <div class="swiper-slide"><a onclick="callFunction({{ loop.index0 }})"><img src="{{ poster_list[i-1] }}"><h3 class="hometitle">{{ name_list[i-1] }}</h3></a></div>
+                                {% endfor %}
+							</div>
+							<div class="nextdirection recent-next"><img src="../static/img/right-arrow.svg"> </div>
+							<div class="leftdirection recent-prev"><img src="../static/img/left-arrow.svg"> </div>
+						</div>
+					</div>
+				</section>
+
+			</div>
+		</main>
+	</div>
+</body>
+
+<script src="../static/js/swiper.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+	$(document).ready(function(){
+
+
+		var swiper = new Swiper('.homeslider > .swiper-container', {
+			pagination: '.swiper-pagination',
+			paginationClickable: true,
+			preventClicks:false,
+			preventClicksPropagation:false,
+			effect:'fade',
+			breakpoints: {
+				320: {
+					height:200
+				},
+
+				480: {
+					height:300
+				},
+
+				768: {
+					height:400
+				},
+				1024: {
+					height:500
+				}
+			}
+		});
+
+		var recentswiper = new Swiper('.recentslider > .swiper-container', {
+			nextButton: '.recent-next',
+			prevButton: '.recent-prev',
+			slidesPerView: 8,
+			paginationClickable: true,
+			preventClicks:false,
+			preventClicksPropagation:false,
+			spaceBetween: 10,
+			breakpoints: {
+				320: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				480: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				768: {
+					slidesPerView: 5,
+					spaceBetween: 5
+				},
+				1024: {
+					slidesPerView: 6,
+					spaceBetween: 10
+				}
+			}
+		});
+
+		var mostswiper = new Swiper('.mostslider > .swiper-container', {
+			nextButton: '.most-next',
+			prevButton: '.most-prev',
+			slidesPerView: 8,
+			paginationClickable: true,
+			preventClicks:false,
+			preventClicksPropagation:false,
+			spaceBetween: 10,
+			breakpoints: {
+				320: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				480: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				768: {
+					slidesPerView: 5,
+					spaceBetween: 5
+				},
+				1024: {
+					slidesPerView: 6,
+					spaceBetween: 10
+				}
+			}
+		});
+
+		var topswiper = new Swiper('.topslider > .swiper-container', {
+			nextButton: '.top-next',
+			prevButton: '.top-prev',
+			slidesPerView: 8,
+			paginationClickable: true,
+			preventClicks:false,
+			preventClicksPropagation:false,
+			spaceBetween: 10,
+			breakpoints: {
+				320: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				480: {
+					slidesPerView: 3,
+					spaceBetween: 5
+				},
+
+				768: {
+					slidesPerView: 5,
+					spaceBetween: 5
+				},
+				1024: {
+					slidesPerView: 6,
+					spaceBetween: 10
+				}
+			}
+		});
+
+	});
+</script>
+<script>
+        var eachmovie_color="red"
+        var data= {
+        labels:["stage1","stage2","stage3","stage4","stage5","stage6","stage7","stage8"],
+        datasets: [
+           {   label: 'SF',
+                backgroundColor:'rgba(255,247,132,0.3)',
+                borderColor: 'rgba(255,247,132,0.3)',
+                data: {{ SF_main }}[1], {# 여기에 comedy y값들 들어감   var comedymax={{ comedymax }}#}
+                fill: +2,
+                pointRadius: 0
+           },
+           {   label: 'SF',
+                backgroundColor: 'rgba(255,247,132,0.3)',
+                borderColor: 'rgb(255,241,13)',
+                data:{{ SF_main }}[2], {# 여기에 comedy y값들 들어감   var comedyavg={{ comedyavg }}#}
+                fill: false,
+                pointRadius: 0
+           },
+            {   label: 'SF',
+                backgroundColor: 'rgba(255,247,132,0.3)',
+                borderColor: 'rgba(255,247,132,0.3)',
+                data: {{ SF_main }}[3],{# 여기에 comedy y값들 들어감   var comedymin={{ comedymin }}#}
+                fill: false,
+                pointRadius: 0
+             }]
+    };
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var mychart = new Chart(ctx, {
+     type: 'line',
+    data: data,
+    options: {
+    }
+    });
+    </script>
+    <script>
+    function callFunction(obj) {
+        if (data.datasets.length==1) {
+            mychart.data.datasets.push({
+                    label: name_list[{{ sf_list }}[obj]-1],
+                    data: {{ SF_10 }}[obj],
+                    pointBorderColor:"yellow",
+                    borderColor: eachmovie_color,
+
+            });
+        }
+        else {
+           mychart.data.datasets = mychart.data.datasets.filter(function(obj) {
+                 return (obj.label =="SF");
+            });
+           mychart.data.datasets.push({
+                    label: name_list[{{ sf_list }}[obj]-1],
+                    data: {{ SF_10 }}[obj],
+                    pointBorderColor:"yellow",
+                    borderColor: eachmovie_color,
+
+            });
+         }
+        mychart.update();
+
+        }
+</script>
+</html>

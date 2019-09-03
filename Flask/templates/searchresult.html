@@ -1,0 +1,310 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+
+<!DOCTYPE html>
+<html class=''>
+<head>
+    <title>검색 결과입니다</title>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/result.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/events_runner-73716630c22bbc8cff4bd0f07b135f00a0bdc5d14629260c3ec49e5606f98fdd.js'></script>
+    <script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
+    <script>
+        var keywordlist = {{ keywordlist | tojson }};
+        var poster_list = {{ poster_list | tojson }};
+        var release_list = {{ release_list | tojson }};
+        var genre_list = {{ genre_list | tojson }};
+        var country_list = {{ country_list | tojson }};
+        var score_list = {{ score_list | tojson }};
+        var mov_list = {{ mov_index | tojson }};
+        document.write("<div id = \"logo\"><a href=\"/\">MOVIEBEAT</a></div>")
+        document.write("<div id = \"menubar\">"+"\n" +
+            "<ul class=\"nav justify-content-end\">\n" +
+            "  <li id =\"padding\" class=\"nav-item\">\n" +
+            "    <a class=\"nav-link\" href=\"/\">HOME</a>\n" +
+            "  </li>\n" +
+            "  <li id =\"padding\" class=\"nav-item\">\n" +
+            "    <a class=\"nav-link\" href=\"/action\">GENRE</a>\n" +
+            "  </li>\n" +
+            "  <li id =\"padding\" class=\"nav-item\">\n" +
+            "    <a class=\"nav-link\" href=\"/analysis\">ANALYSIS</a>\n" +
+            "  </li>\n" +
+            "</ul></div>")
+        document.write("<br>")
+        document.write("<br>")
+        document.write("<br>")
+        document.write("<p class=\"intro\"> \"<b>{{ keyword }}</b>\" 에 대한 검색 결과 입니다. </p>")
+        document.write("<br>")
+        document.write("<br>")
+        document.write("<div class=\"row justify-content-center\">\n" +
+            "                        <div class=\"col-12 col-md-10 col-lg-6\">\n" +
+            "                            <form  method=\"post\" class = \"\"action=\"/result\">\n" +
+            "                                <div class=\"card-body row no-gutters align-items-center\">\n" +
+            "                                    <div class=\"col-auto\">\n" +
+            "                                        <i class=\"fas fa-search h4 text-body\"></i>\n" +
+            "                                    </div>\n" +
+            "                                    <!--end of col-->\n" +
+            "                                    <div class=\"col\">\n" +
+            "                                        <input class=\"form-control form-control-lg form-control-borderless\" type=\"search\" placeholder=\"찾으시는 결과가 없나요?!\" name=\"d\">\n" +
+            "                                    </div>\n" +
+            "                                    <!--end of col-->\n" +
+            "                                    <div class=\"col-auto middle\">\n" +
+            "                                        <button class=\"btn btn-lg btn-success\" type=\"submit\">Search</button>\n" +
+            "                                    </div>\n" +
+            "                                    <!--end of col-->\n" +
+            "                                </div>\n" +
+            "                            </form>\n" +
+            "                        </div>\n" +
+            "                        <!--end of col-->\n" +
+            "                    </div>")
+
+        document.write("<div class=\"container\">")
+        for(i=0; i < keywordlist.length; i++){
+
+                    console.log(poster_list[i])
+                    var mov_index = mov_list[i]
+                    document.write("" + "<div class=\"movie-card\">\n" +
+                    "\t\t<div class=\"movie-header\"" + " style=\"background:url(" + poster_list[i] + ");background-size:cover;\">\n" +
+                    "\t\t\t<div class=\"header-icon-container\">\n" +
+                    "\t\t\t\t<a href=\"personal?mov_index="+mov_index+"\">\n" +
+                    "\t\t\t\t\t<i class=\"material-icons header-icon\"></i>\n" +
+                    "\t\t\t\t</a>\n" +
+                    "\t\t\t</div>\n" +
+                    "\t\t</div><!--movie-header-->\n" +
+                    "\t\t<div class=\"movie-content\">\n" +
+                    "\t\t\t<div class=\"movie-content-header\">\n" +
+                    "\t\t\t\t<a href=\"\">\n" +
+                    "\t\t\t\t\t<h3 class=\"movie-title\">"+keywordlist[i]+"</h3>\n" +
+                    "\t\t\t\t</a>\n" +
+                    "\t\t\t\t<div class=\"imax-logo\"></div>\n" +
+                    "\t\t\t</div>\n" +
+                    "\t\t\t<div class=\"movie-info\">\n" +
+                    "\t\t\t\t<div class=\"info-section\">\n" +
+                    "\t\t\t\t\t<label>개봉일자</label>\n" +
+                    "\t\t\t\t\t<span>"+release_list[i]+"</span>\n" +
+                    "\t\t\t\t</div><!--date,time-->\n" +
+                    "\t\t\t\t<div class=\"info-section\">\n" +
+                    "\t\t\t\t\t<label>장르</label>\n" +
+                    "\t\t\t\t\t<span>"+genre_list[i]+"</span>\n" +
+                    "\t\t\t\t</div><!--screen-->\n" +
+                    "\t\t\t\t<div class=\"info-section\">\n" +
+                    "\t\t\t\t\t<label>국가</label>\n" +
+                    "\t\t\t\t\t<span>"+country_list[i]+"</span>\n" +
+                    "\t\t\t\t</div><!--row-->\n" +
+                    "\t\t\t\t<div class=\"info-section\">\n" +
+                    "\t\t\t\t\t<label>평점</label>\n" +
+                    "\t\t\t\t\t<span>"+score_list[i]+"</span>\n" +
+                    "\t\t\t\t</div><!--seat-->\n" +
+                    "\t\t\t</div>\n" +
+                    "\t\t</div><!--movie-content-->\n" +
+                    "\t</div>")
+            }
+        document.write("</div>")
+    </script>
+    <meta charset='UTF-8'>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://codepen.io/ryanparag/pen/LLrVbo?depth=everything&order=popularity&page=10&q=movie&show_forks=false" />
+    <link rel="stylesheet" href="../static/css/result.css">
+    <link rel="stylesheet" href="../static/bootstrap/bootstrap.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+
+<style class="cp-pen-styles">@import url("https://fonts.googleapis.com/css?family=Arimo:400,700");
+
+body {
+    height: 100%;
+    width: 100%;
+    background: #000000;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+* {
+    -webkit-transition: 300ms;
+    transition: 300ms;
+}
+
+.intro {
+    text-align: center;
+    font-size:40px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h1, h2, h3, h4, h5, p {
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #ff0000;
+}
+
+.container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+.movie-card {
+    background: #ffffff;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 315px;
+    margin: 2em;
+    border-radius: 10px;
+    display: inline-block;
+    color: #000000;
+}
+
+.movie-header {
+    padding: 0;
+    margin: 0;
+    height: 367px;
+    width: 100%;
+    display: block;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.manOfSteel {
+    background: url("https://movie-phinf.pstatic.net/20111223_57/13245799126671QMbI_JPEG/movie_image.jpg");
+    background-size: cover;
+}
+
+.header-icon-container {
+    position: relative;
+}
+
+
+.header-icon {
+    width: 100%;
+    height: 367px;
+    line-height: 367px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    font-size: 54px;
+    text-shadow: 0px 0px 20px #6abcea, 0px 5px 20px #6ABCEA;
+    opacity: .85;
+}
+
+.header-icon:hover {
+    background: rgba(0, 0, 0, 0.15);
+    font-size: 74px;
+    text-shadow: 0px 0px 20px #6abcea, 0px 5px 30px #6ABCEA;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    opacity: 1;
+}
+
+.movie-card:hover {
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.movie-content {
+    padding: 18px 18px 24px 18px;
+    margin: 0;
+}
+
+.movie-content-header, .movie-info {
+    display: table;
+    width: 100%;
+}
+
+.movie-title {
+    font-size: 24px;
+    margin: 0;
+    display: table-cell;
+}
+
+.imax-logo {
+    width: 50px;
+    height: 15px;
+    background: url("https://6a25bbd04bd33b8a843e-9626a8b6c7858057941524bfdad5f5b0.ssl.cf5.rackcdn.com/media_kit/3e27ede823afbf139c57f1c78a03c870.jpg") no-repeat;
+    background-size: contain;
+    display: table-cell;
+    float: right;
+    position: relative;
+    margin-top: 5px;
+}
+
+.movie-info {
+    margin-top: 1em;
+}
+
+.info-section {
+    display: table-cell;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.info-section:first-of-type {
+    text-align: left;
+}
+
+.info-section:last-of-type {
+    text-align: right;
+}
+
+.info-section label {
+    display: block;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom: .5em;
+    font-size: 9px;
+}
+
+.info-section span {
+    font-weight: 700;
+    font-size: 11px;
+}
+
+@media screen and (max-width: 500px) {
+    .movie-card {
+        width: 95%;
+        max-width: 95%;
+        margin: 1em;
+        display: block;
+    }
+
+    .container {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+</style></head>
+<body>
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+</html>
